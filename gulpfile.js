@@ -28,9 +28,9 @@ gulp.task('watch', ['static'], function () {
     server.changed(file.path);
   });
 
-  gulp.src('./src/*.js')
+  gulp.src('./js/*.js')
     .pipe(watch())
-    .pipe(gulp.dest(dest));
+    .pipe(gulp.dest(dest + '/js'));
 
   gulp.src('./src/index.html')
     .pipe(watch())
