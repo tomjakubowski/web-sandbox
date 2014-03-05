@@ -3,6 +3,8 @@ var gutil = require('gulp-util');
 var livereload = require('gulp-livereload');
 var embedlr = require('gulp-embedlr');
 var watch = require('gulp-watch');
+var sass = require('gulp-sass');
+var bourbon = require('node-bourbon').includePaths;
 
 var dest = 'build';
 
@@ -31,6 +33,11 @@ gulp.task('watch', ['static'], function () {
   gulp.src('./js/*.js')
     .pipe(watch())
     .pipe(gulp.dest(dest + '/js'));
+
+  gulp.src('./scss/*.scss')
+    .pipe(watch())
+    .pipe(sass({ errLogToConsole: true, includePaths: bourbon }))
+    .pipe(gulp.dest(dest + '/css'));
 
   gulp.src('./src/index.html')
     .pipe(watch())
