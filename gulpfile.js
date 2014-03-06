@@ -5,6 +5,7 @@ var embedlr = require('gulp-embedlr');
 var watch = require('gulp-watch');
 var sass = require('gulp-sass');
 var bourbon = require('node-bourbon').includePaths;
+var debug = require('gulp-debug');
 
 var dest = 'build';
 
@@ -30,14 +31,15 @@ gulp.task('watch', ['static'], function () {
     server.changed(file.path);
   });
 
-  gulp.src('./js/*.js')
-    .pipe(watch())
+  watch({ glob: './js/*.js' })
     .pipe(gulp.dest(dest + '/js'));
 
-  gulp.src('./scss/*.scss')
-    .pipe(watch())
-    .pipe(sass({ errLogToConsole: true, includePaths: bourbon }))
-    .pipe(gulp.dest(dest + '/css'));
+  watch({ glob: ['./scss/*.scss'] }, function (files) {
+    gulp.src('./scss/index.scss')
+      .pipe(debug({verbose:false}))
+      .pipe(sass({ errLogToConsole: true, includePaths: bourbon }))
+      .pipe(gulp.dest(dest + '/css'));
+  });
 
   gulp.src('./src/index.html')
     .pipe(watch())
