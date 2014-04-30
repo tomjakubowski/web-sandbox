@@ -35,7 +35,7 @@ gulp.task('watch', ['static'], function () {
     .pipe(gulp.dest(dest + '/js'));
 
   watch({ glob: ['./scss/*.scss'] }, function (files) {
-    gulp.src('./scss/index.scss')
+    gulp.src('./scss/*.scss')
       .pipe(debug({verbose:false}))
       .pipe(sass({ errLogToConsole: true, includePaths: bourbon }))
       .pipe(gulp.dest(dest + '/css'));
